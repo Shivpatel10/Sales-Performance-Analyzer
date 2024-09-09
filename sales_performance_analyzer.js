@@ -25,6 +25,13 @@ function determinePerformanceRating(averageSales)
         return "Need Improvement"; //Returns Needs Improvement if Sales lower than $4,000 
          }
 }
+// Data Provided
+const salesData = [
+    { name: 'Alice', teamSales: [12000, 15000, 13000] },   
+    { name: 'Bob', teamSales: [7000, 6000, 7500] },
+    { name: 'Charlie', teamSales: [3000, 4000, 3500] },
+    { name: 'Diana', teamSales: [9000, 8500, 9200] },
+]
 
 
 //Task 3: Function to Identify Top and Bottom Performers
@@ -77,17 +84,15 @@ const {topPerformer,bottomPerformer} = findTopAndBottomPerformers(salesData); //
         bottomPerformer
     };
 }
-// Data Provided
-const salesData = [
-    { name: 'Alice', teamSales: [12000, 15000, 13000] },   
-    { name: 'Bob', teamSales: [7000, 6000, 7500] },
-    { name: 'Charlie', teamSales: [3000, 4000, 3500] },
-    { name: 'Diana', teamSales: [9000, 8500, 9200] },
-]
+
 
 // Creating the Final Report
 const performanceReport = generatePerformanceReport(salesData)
 
-console.log(performanceReport.prefReport) // output for each person
+// performance rating per person
+performanceReport.prefReport.forEach(salesperson => {
+    console.log(`${salesperson.name}: ${salesperson.performanceRating}`);
+});
+
 console.log(performanceReport.topPerformer); // output for top performer
 console.log(performanceReport.bottomPerformer); // output for the bottom performer
