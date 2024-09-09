@@ -26,3 +26,68 @@ function determinePerformanceRating(averageSales)
          }
 }
 
+
+//Task 3: Function to Identify Top and Bottom Performers
+function findTopAndBottomPerformers(teamSales)
+{
+    //Start by adding together each team members Sales Numbers
+    const salesTotals = teamSales.map(member => {
+        const totalSales = member.teamSales.reduce((sum, sale) => sum + sale, 0);
+            return {name: member.name, totalSales};
+    });
+
+    // Getting the maximum and minimum total sales using Math.max and Math.min
+    const maxSales = Math.max(...salesTotals.map(member => member.totalSales));
+    const minSales = Math.min(...salesTotals.map(member => member.totalSales));
+
+    // Finding the team members using the max and min total sales
+    const topPerformer = salesTotals.find(member => member.totalSales === maxSales);
+    const bottomPerformer = salesTotals.find(member => member.totalSales === minSales);
+
+    return { 
+        topPerformer, bottomPerformer
+     };
+}
+
+const result = findTopAndBottomPerformers(salesData)
+
+console.log("Top Performer", result.topPerformer);
+console.log("Bottom Performer", result.bottomPerformer);
+
+
+// Task 4: Combine Functions to Generate a Performance Report
+function generatePerformanceReport(salesData)
+{
+// Making Array to hold Sales Data
+const prefReport = salesData.map(member => {
+    const averageSales = calculateAverageSales(member.teamSales); //Calculating avg sales per person.
+    const performanceRating = determinePerformanceRating(averageSales); // Getting performance rating per person
+    
+    return { // returning the report for sales person
+        name: member.name,
+        averageSales: averageSales,
+        performanceRating: performanceRating
+     };
+ });
+
+const {topPerformer,bottomPerformer} = findTopAndBottomPerformers(salesData); //Getting the information for the top and bottom performers
+    return { // returing the top and bottom data
+        prefReport,
+        topPerformer,
+        bottomPerformer
+    };
+}
+// Data Provided
+const salesData = [
+    { name: 'Alice', teamSales: [12000, 15000, 13000] },   
+    { name: 'Bob', teamSales: [7000, 6000, 7500] },
+    { name: 'Charlie', teamSales: [3000, 4000, 3500] },
+    { name: 'Diana', teamSales: [9000, 8500, 9200] },
+]
+
+// Creating the Final Report
+const performanceReport = generatePerformanceReport(salesData)
+
+console.log(performanceReport.prefReport) // output for each person
+console.log(performanceReport.topPerformer); // output for top performer
+console.log(performanceReport.bottomPerformer); // output for the bottom performer
